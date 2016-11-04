@@ -1,4 +1,5 @@
 #node_modules
 /pages/node_modules/*
 /pages/package.json
-/pages/.ideas/*
+/pages/.idea/*
+./gulpfile.js
