@@ -238,9 +238,19 @@
     </script>
 
     <script type="text/babel">
+        /**
+         * propTypes 属性： 定义属性类型？！
+         */
+        
+         
     	var MyTitle = React.createClass({
     		propTypes: {
-    			title: React.PropTypes.string.isRequired,
+                /*
+                    表示 this.props.title 必须是一个字符串
+                    如果不加isRequired , 报warning时依然会将不符合类型的数据渲染出来，网页上能看到123
+                    加上isRequired, 则不会加载，是中断运行了？！
+                 */
+    			title: React.PropTypes.string,
     		},
     		render: function() {
     			return <h1>{this.props.title}</h1>;
@@ -249,7 +259,7 @@
     	var data = 123;
     	ReactDOM.render(
     		<MyTitle title={data}/>,
-    		document.getElementsById('example5')
+    		document.getElementById('example6')
     	);
     </script>
 <!-- <script type="text/babel">
