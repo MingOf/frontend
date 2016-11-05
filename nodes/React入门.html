@@ -125,81 +125,133 @@
     </script>
 </head>
 <body>
-	<div id="example"></div>
+    <div id="example"></div>
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <div id="example3"></div>
+    <div id="example4"></div>
+    <div id="example5"></div>
+    <div id="example6"></div>
+    <div id="example7"></div>
+    <div id="example8"></div>
+    <div id="example9"></div>
+	<div id="example10"></div>
 	<div class="example"></div>
 	<div class="example"></div>
-	<!-- <script type="text/babel">
+
+	<script type="text/jsx">
+    // script标签的type 可以使用jsx, 或者babel, 虽然并不懂为什么
+
+        /**
+         * 案例1：hello world
+         */
 		ReactDOM.render(
 			<h1>Hello, world! </h1>,
-			document.getElementById('example')
+            /* 这里获得的DOM元素只能是一个，不能有两个元素 */
+			document.getElementById('example1') 
 		);
-	</script> -->
-	<!-- <script type  ="text/babel">
+	</script>
+
+	<script type="text/babel">
+        /**
+         * 在render 函数中使用 表达式 {...}
+         * 数组中的值是一系列js 的数据
+         */
 		var names = ['Alice','Emily','Kate'];
 		ReactDOM.render(
-			// <div>
-			// <div>{names}</div>,
-			document.getElementById('example')
+			<div key='1'>{names}</div>, /*一个div中包裹几个names*/
+			document.getElementById('example2')
 		);
-	</script> -->
-	<!-- <script type="text/babel">
+	</script>
+
+	<script type="text/babel">
+        /**
+         * react中数组可以是js中的类型，还可以直接写html结构
+         */
 		var arr = [
-			<h1>Hello world!</h1>,
-			<h2>React is awesome</h2>
+            /*如果不写key会有warning：each child... should have unique key value*/
+			<h1 key='1'>Hello world!</h1>,
+			<h2 key='2'>React is awesome</h2>
 		];
 		ReactDOM.render(
-			<div>{arr}</div>,
-			document.getElementById('example')
+			<div>{arr}</div>, /*一个div中包裹几个标签*/
+			document.getElementById('example3')
 		);
-	</script> -->
-	<!-- <script type="text/babel">
+	</script>
+
+	<script type="text/babel">
+        /**
+         *  创建组件，react 中有虚拟DOM的概念需要明白
+         *  使用React.createClass创建组件 HelloMessage
+         *  每个组件必须有一个render 方法
+         *  this.props 代表当前组件 中有的属性
+         */
+        
 		var HelloMessage = React.createClass({
 			render: function() {
 				return <div><h1>hello {this.props.firstName} </h1> <h2> {this.props.lastName} </h2></div>;
 			}
 		});
 		ReactDOM.render(
+            /**
+             * 在ReactDOM.render函数中
+             * 1：写入要渲染的组件
+             * 2：将组件渲染到真实DOM的哪个地方
+             * this.props 中的属性代表组件中写的属性，this.props.firstName 就是此处的'John'
+             */
 			<HelloMessage firstName='John' lastName='Lin'/>,
-			document.getElementById('example')
+			document.getElementById('example4')
 		)
-	</script> -->
-<!-- <script type="text/babel">
-	var NoteList = React.createClass ({
-		render: function(){
-			return (
-				<ol>
-				{
-					React.Children.map(this.props.children,function(child){
-						return <li>{child} </li>;
-					})
-				}
-				</ol>
-			);
-		}
-	});
-	ReactDOM.render (
-		<NoteList>
-			{/*<span>hello</span>
-			<span>world</span>*/}
-		</NoteList>,
-		document.getElementById('example')
-	)
-</script> -->
-<!-- <script type="text/babel">
-	var MyTitle = React.createClass({
-		propTypes: {
-			title: React.PropTypes.string.isRequired,
-		},
-		render: function() {
-			return <h1>{this.props.title}</h1>;
-		}
-	});
-	var data = 123;
-	ReactDOM.render(
-		<MyTitle title={data}/>,
-		document.getElementsByClassName('example')[0]
-	);
-</script> -->
+	</script>
+
+    <script type="text/babel">
+        /**
+         * 创建组件 NoteList
+         * render 一个有序列表
+         * 注意：render 中只能有一个最顶层的DOM容器，比如不能出现<ol>...</ol><div>...</div>
+         *       此时的ol与div同在最外层，react会报错
+         * React.Children 包含可以处理组件下孩子节点的方法？！
+         * this.props.children 比较特殊：因为DOMrender 方法中的NoteList并未写明children属性，但可直接使用
+         *       代表孩子节点
+         */
+        
+    	var NoteList = React.createClass ({
+    		render: function(){
+    			return (
+    				<ol>
+    				{
+    					React.Children.map(this.props.children,function(child){
+    						return <li>{child} </li>;
+    					})
+    				}
+    				</ol>
+    			);
+    		}
+    	});
+    	ReactDOM.render (
+    		<NoteList>
+    			<span>hello</span>
+    			<span>world</span>
+    		</NoteList>,
+    		document.getElementById('example5')
+    	)
+    </script>
+
+    <script type="text/babel">
+    	var MyTitle = React.createClass({
+    		propTypes: {
+    			title: React.PropTypes.string.isRequired,
+    		},
+    		render: function() {
+    			return <h1>{this.props.title}</h1>;
+    		}
+    	});
+    	var data = 123;
+    	ReactDOM.render(
+    		<MyTitle title={data}/>,
+    		document.getElementsById('example5')
+    	);
+    </script>
 <!-- <script type="text/babel">
 	var MyTitle = React.createClass({
 		getDefaultProps: function() {
