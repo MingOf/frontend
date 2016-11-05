@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/react.js'></script>
+	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/react-dom.js'></script>
+	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/browser.min.js'></script>
+    <script type="text/javascript" src='F:/OneDrive/Web/ReactJS/JSXTransformer.js'></script>
+    <script src="F:/OneDrive/Web/ReactJS/jquery.min.js"></script>
+
+    <!-- 尝试使用自己封装的ajax-->
+    <script>
+        (function () {
+            function JQuery (selector) {
+                function Generator (selector) {
+                    document.querySelectorAll.prototype = JQuery.prototype;
+
+                    var dom = document.querySelectorAll(selector);
+                    console.log(dom);
+                    this.selector = selector;
+                    this.dom = dom; //数组
+                }
+                Generator.prototype = JQuery.prototype;
+
+                return new Generator(selector);
+            }
+            var $ = JQuery;
+            $.fn = JQuery.prototype;
+
+
+//      对$ 进行扩展
+            $.fn.extend = function (obj) {
+                for(var item in obj) {
+                    if($[item] == undefined) {
+                        $[item] = obj[item];
+                    }
+                }
+            };
+
+//      对$() 对象进行扩展
+            $.extend = function (obj) {
+                for(var item in obj) {
+                    $.fn[item] = obj[item];
+                }
+            };
+            $.extend({
+                eq: function (index) {
+                    console.log(this);
+                    return this;
+                }
+            });
+            $.fn.extend({
+                ajax: ajax
+            });
+            function ajax (obj) {
+                if(obj == undefined) throw 'object-type argument is required';
+
+                var defaultArgs = {
+                    method: 'get',
+                    dataType: 'json',
+                    async: true,
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (data) {
+                        console.log('ajax compelte');
+                    },
+                    error: function () {
+                        throw 'unexpected error occured';
+                    }
+                };
+
+                for(var item in defaultArgs) {
+                    if(obj[item]==undefined) {
+                        obj[item] = defaultArgs[item];
+                    }
+                }
+
+                var xhr = {};
+                if(window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                }else if(window.ActiveXObject){
+                    xhr = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+
+                xhr.open(obj.method,obj.url,obj.async);
+
+                if(obj.method == 'get' || obj.method == 'GET') {
+                    xhr.send(null);
+                }else if(obj.method == 'POST' || obj.method == 'post') {
+                    /*POST 数据处理*/
+                    xhr.setRequestHeader('contentType',obj.contentType);
+                    console.log(obj.data);
+                    if(typeof obj.data == 'object'){
+                        var req = '';
+                        for (item in obj.data) {
+                            req += '&'+item+'='+obj.data[item];
+                        }
+                        req = req.substring(1);
+                        xhr.send(req);
+                        console.log(req);
+                    }else if (typeof obj.data == 'string'){
+                        xhr.send(obj.data);
+                        console.log(obj.data);
+                    }else {
+                        throw 'unhandled type of request data';
+                    }
+                }
+
+                xhr.onreadystatechange = function () {
+                    if(xhr.status = 200 && xhr.readyState == 4) {
+                        var data = xhr.responseText;
+                        if(obj.dataType == 'json' || obj.dataType == 'JSON') {
+                            data = JSON.parse(data);
+                        }else if(obj.dataType == 'xml' || obj.dataType == 'XML') {
+                            data = xhr.responseXML;
+                        }
+                        obj.success(data);
+                    }else if(xhr.readyState == 4){
+                        obj.error()
+                    }
+                };
+                return $;
+            }
+            return window.$=$;
+        })();
+    </script>
+</head>
+<body>
+	<div id="example"></div>
+	<div class="example"></div>
+	<div class="example"></div>
+	<!-- <script type="text/babel">
+		ReactDOM.render(
+			<h1>Hello, world! </h1>,
+			document.getElementById('example')
+		);
+	</script> -->
+	<!-- <script type  ="text/babel">
+		var names = ['Alice','Emily','Kate'];
+		ReactDOM.render(
+			// <div>
+			// <div>{names}</div>,
+			document.getElementById('example')
+		);
+	</script> -->
+	<!-- <script type="text/babel">
+		var arr = [
+			<h1>Hello world!</h1>,
+			<h2>React is awesome</h2>
+		];
+		ReactDOM.render(
+			<div>{arr}</div>,
+			document.getElementById('example')
+		);
+	</script> -->
+	<!-- <script type="text/babel">
+		var HelloMessage = React.createClass({
+			render: function() {
+				return <div><h1>hello {this.props.firstName} </h1> <h2> {this.props.lastName} </h2></div>;
+			}
+		});
+		ReactDOM.render(
+			<HelloMessage firstName='John' lastName='Lin'/>,
+			document.getElementById('example')
+		)
+	</script> -->
+<!-- <script type="text/babel">
+	var NoteList = React.createClass ({
+		render: function(){
+			return (
+				<ol>
+				{
+					React.Children.map(this.props.children,function(child){
+						return <li>{child} </li>;
+					})
+				}
+				</ol>
+			);
+		}
+	});
+	ReactDOM.render (
+		<NoteList>
+			{/*<span>hello</span>
+			<span>world</span>*/}
+		</NoteList>,
+		document.getElementById('example')
+	)
+</script> -->
+<!-- <script type="text/babel">
+	var MyTitle = React.createClass({
+		propTypes: {
+			title: React.PropTypes.string.isRequired,
+		},
+		render: function() {
+			return <h1>{this.props.title}</h1>;
+		}
+	});
+	var data = 123;
+	ReactDOM.render(
+		<MyTitle title={data}/>,
+		document.getElementsByClassName('example')[0]
+	);
+</script> -->
+<!-- <script type="text/babel">
+	var MyTitle = React.createClass({
+		getDefaultProps: function() {
+			return {
+				title: 'Hello',
+				name: 'word'
+			};
+		},
+		render: function() {
+			return <h1> {this.props.title} & {this.props.name} </h1>;
+		}
+	});
+	ReactDOM.render(
+		<MyTitle title='haha'/>,
+		document.getElementById('example')
+	)
+</script> -->
+<!-- <script type="text/babel">
+	var MyComponent = React.createClass({
+		handleClick: function() {
+			this.refs.myTextInput.focus();
+		},
+		render: function() {
+			return (
+				<div>
+					<input type="text" name="" ref='myTextInput' />
+					<input type="button" name="" value='Focus the text input' onClick = {this.hanleClick} />
+				</div>
+			);
+		}
+	});
+	ReactDOM.render(
+		<MyComponent/>,
+		document.getElementById('example')
+	)
+</script> -->
+<!-- <script type="text/babel">
+	var LikeButton = React.createClass({
+		// {/*设置默认的属性*/}
+		getDefaultProps: function () {
+			return {
+				name : 'Johnny'
+			};
+		},
+		// {/*设置属性的类型/}
+		propTypes: {
+			name: React.PropTypes.string.isRequired
+		},
+		// {/*初始化状态*/}
+		getInitialState: function () {
+			return {liked: false};
+		},
+		// {/*点击事件处理函数*/}
+		handleClick: function (event) {
+			return this.setState({liked: !this.state.liked});
+		},
+		// {/*render 函数(必须)*/}
+		render: function () {
+			var text = this.state.liked ? "liked":"don't like";
+			return (
+				<p onClick={this.handleClick}>
+					You {text} {this.props.name} ,Click to toggle it!
+				</p>
+			)
+		}
+	});
+	var data = "123";
+	ReactDOM.render (
+		<LikeButton name={data}/>, /*JSX 值必须是表达式或者字符串*/
+		document.getElementById('example')
+	)
+</script> -->
+<!-- <script type="text/jsx">
+var Input = React.createClass({
+	getInitialState: function () {
+		return {value: 'hello'};
+	},
+    getDefaultProps: function () {
+        return {value: 'world'};
+    },
+	handleChange: function (event) {
+		return this.setState({value: event.target.value});
+	},
+//    handlePropsChange:function(event) {
+//        return this.props.value = event.target.value;
+//    },
+	render: function () {
+		var value = this.state.value;
+        /*表单不同于其他标签，文本框中的值不能用this.props.value进行动态读取，
+        * 而是必须使用一个onchange事件的回调函数，如handleChange，通过event.target.value
+        * 进行读取，textarea，select，radio和input text一样
+        * */
+//        var value = this.props.value;
+        console.log(value);
+		var style = {
+			backgroundColor: 'red',
+			width: "100px",
+			height: "100px"
+		};
+		return (
+			<div>
+				<input type="text" name="" value={value} onChange={this.handleChange}/>
+				<p width='100px' height='100px' style={style}>{value}</p>
+				{/*此处必须使用键值(对象)对的方式给style传值*/}
+			</div>
+		);
+	}
+});
+ReactDOM.render(
+	<Input/>,
+	document.getElementById('example')
+);
+</script> -->
+<!-- <script type="text/jsx">
+
+    var Hello = React.createClass({
+        getInitialState:function() {
+            return {
+                opacity: 0,
+                width: 0,
+                height: 0
+            };
+        },
+        componentDidMount: function () {
+            this.height = 200;
+            console.log('componentDidMount');
+            this.animate = function(){
+                var width = this.state.width;
+                var height = this.state.height;
+                var opacity = this.state.opacity;
+
+                height -= 1;
+                if(height<0) height=200;
+                width -= 1;
+                if(width<0) width =200;
+                opacity -= 0.02;
+                if(opacity<0.1) {
+                    opacity = 1;
+                }
+                this.setState({opacity: opacity,width: width,height: height});
+            };
+            this.timer = setInterval(function(){
+                var width = this.state.width;
+                var height = this.state.height;
+                var opacity = this.state.opacity;
+
+                height -= 1;
+                if(height<0) height=200;
+                width -= 1;
+                if(width<0) width =200;
+                opacity -= 0.02;
+                if(opacity<0.1) {
+                    opacity = 1;
+                }
+                this.setState({opacity: opacity,width: width,height: height});
+            }.bind(this),14);
+
+        },
+        componentWillUpadate: function (nextProps,nextState) {
+            console.log(nextProps);
+        },
+        componentDidUpadate: function (prevProps, prevState) {
+            console.log("DidUpadate");
+        },
+        toggleAnimate: function() {
+            if(this.timer == null){
+                console.log('hah');
+                this.timer = setInterval(this.animate.bind(this),14);
+            }else{
+                clearInterval(this.timer);
+                this.timer = null;
+            }
+        },
+        render: function () {
+            var style= {
+                opacity: this.state.opacity,
+                width: this.state.width +"px",
+                height: this.state.height + 'px',
+                fontSize:'50px',
+                backgroundColor: 'pink'
+            };
+            return (
+                <div>
+                    <div style={{height:parseInt(this.height)+200+'px'}}>
+                        <div style={style}>
+                            HELLO {this.props.name}
+                            <h1>{this.state.width}</h1>
+                            {/*注册事件监听必须使用大写*/}
+                        </div>
+                    </div>
+
+                    <button style={{width:'100px',height:'100px'}} onClick={this.toggleAnimate}></button>
+                </div>
+
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <Hello name="world">
+            <span></span>
+            <span></span>
+        </Hello>,
+        document.getElementById('example')
+    );
+</script> -->
+<script type="text/jsx">
+    var UserGist = React.createClass({
+        getInitialState: function () {
+            return {
+                username: '',
+                lastGistUrl: ''
+            };
+        },
+        componentDidMount: function () {
+            /**
+             * jquery ajax
+
+            $.ajax({
+                url: this.props.source,
+                type:'get',
+                dataType:'json',
+                scriptCharset: 'utf-8',
+                success: function (rs) {
+                    var lastGist = rs[0];
+                    if(this.isMounted()){
+                        this.setState({
+                            username: lastGist.owner.login,
+                            lastGistUrl: lastGist.html_url
+                        });
+                    }
+                }.bind(this),
+                error: function (err) {
+                    console.log(err);
+                }.bind(this)
+            });
+
+            */
+
+            /**
+             * 尝试使用自己封装的ajax
+             * 表明react 本身没有任何的依赖，可以与其他库混用，甚至使用自己封装的代码
+             */
+            $.ajax({
+                method: 'get',/*get,GET,post,POST*/
+                url: this.props.source,
+//                data: { /*可写成对象格式,也可以直接字符串拼接，get不写*/
+//                    a:1,
+//                    b:2,
+//                    c:3
+//                },
+                dataType: 'json',/*默认JSON,可选JSON,XML,其他按照txt处理*/
+                success: function (rs) {
+                    console.log(rs);
+                    var lastGist = rs[0];
+                    if(this.isMounted()){
+                        this.setState({
+                            username: lastGist.owner.login,
+                            lastGistUrl: lastGist.html_url
+                        });
+                    }
+                }.bind(this)
+                /*此处必须使用bind方法将success中的this绑定为当前的组件——UserGist*/
+            });
+        },
+        render: function () {
+            return (
+                <div>
+                    {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>
+                </div>
+            );
+        }
+
+    });
+    ReactDOM.render(
+        <UserGist source='https://api.github.com/users/octocat/gists'/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>
