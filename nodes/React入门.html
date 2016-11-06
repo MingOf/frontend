@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+    <meta charset="utf-8" content="为了github上语法高亮，将jsx script标签的type改成了JavaScript，运行时需要将其改回<script type='text/babel/>或<script type='text/jsx/>">
 	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/react.js'></script>
 	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/react-dom.js'></script>
 	<script type="text/javascript" src='F:/OneDrive/Web/ReactJS/browser.min.js'></script>
@@ -135,11 +136,13 @@
     <div id="example7"></div>
     <div id="example8"></div>
     <div id="example9"></div>
-	<div id="example10"></div>
+    <div id="example10"></div>
+    <div id="example11"></div>
+	<div id="example12"></div>
 	<div class="example"></div>
 	<div class="example"></div>
 
-	<script type="text/jsx">
+	<script type="text/javascript">
     // script标签的type 可以使用jsx, 或者babel, 虽然并不懂为什么
 
         /**
@@ -152,7 +155,7 @@
 		);
 	</script>
 
-	<script type="text/babel">
+	<script type="text/javascript">
         /**
          * 在render 函数中使用 表达式 {...}
          * 数组中的值是一系列js 的数据
@@ -164,7 +167,7 @@
 		);
 	</script>
 
-	<script type="text/babel">
+	<script type="text/javascript">
         /**
          * react中数组可以是js中的类型，还可以直接写html结构
          */
@@ -179,7 +182,7 @@
 		);
 	</script>
 
-	<script type="text/babel">
+	<script type="text/javascript">
         /**
          *  创建组件，react 中有虚拟DOM的概念需要明白
          *  使用React.createClass创建组件 HelloMessage
@@ -204,7 +207,7 @@
 		)
 	</script>
 
-    <script type="text/babel">
+    <script type="text/javascript">
         /**
          * 创建组件 NoteList
          * render 一个有序列表
@@ -237,7 +240,7 @@
     	)
     </script>
 
-    <script type="text/babel">
+    <script type="text/javascript">
         /**
          * propTypes 属性： 定义属性类型？！
          */
@@ -256,127 +259,158 @@
     			return <h1>{this.props.title}</h1>;
     		}
     	});
-    	var data = 123;
+    	// var data = 123;
+        var data = '123';
     	ReactDOM.render(
     		<MyTitle title={data}/>,
     		document.getElementById('example6')
     	);
     </script>
-<!-- <script type="text/babel">
-	var MyTitle = React.createClass({
-		getDefaultProps: function() {
-			return {
-				title: 'Hello',
-				name: 'word'
-			};
-		},
-		render: function() {
-			return <h1> {this.props.title} & {this.props.name} </h1>;
-		}
-	});
-	ReactDOM.render(
-		<MyTitle title='haha'/>,
-		document.getElementById('example')
-	)
-</script> -->
-<!-- <script type="text/babel">
-	var MyComponent = React.createClass({
-		handleClick: function() {
-			this.refs.myTextInput.focus();
-		},
-		render: function() {
-			return (
-				<div>
-					<input type="text" name="" ref='myTextInput' />
-					<input type="button" name="" value='Focus the text input' onClick = {this.hanleClick} />
-				</div>
-			);
-		}
-	});
-	ReactDOM.render(
-		<MyComponent/>,
-		document.getElementById('example')
-	)
-</script> -->
-<!-- <script type="text/babel">
-	var LikeButton = React.createClass({
-		// {/*设置默认的属性*/}
-		getDefaultProps: function () {
-			return {
-				name : 'Johnny'
-			};
-		},
-		// {/*设置属性的类型/}
-		propTypes: {
-			name: React.PropTypes.string.isRequired
-		},
-		// {/*初始化状态*/}
-		getInitialState: function () {
-			return {liked: false};
-		},
-		// {/*点击事件处理函数*/}
-		handleClick: function (event) {
-			return this.setState({liked: !this.state.liked});
-		},
-		// {/*render 函数(必须)*/}
-		render: function () {
-			var text = this.state.liked ? "liked":"don't like";
-			return (
-				<p onClick={this.handleClick}>
-					You {text} {this.props.name} ,Click to toggle it!
-				</p>
-			)
-		}
-	});
-	var data = "123";
-	ReactDOM.render (
-		<LikeButton name={data}/>, /*JSX 值必须是表达式或者字符串*/
-		document.getElementById('example')
-	)
-</script> -->
-<!-- <script type="text/jsx">
-var Input = React.createClass({
-	getInitialState: function () {
-		return {value: 'hello'};
-	},
-    getDefaultProps: function () {
-        return {value: 'world'};
-    },
-	handleChange: function (event) {
-		return this.setState({value: event.target.value});
-	},
-//    handlePropsChange:function(event) {
-//        return this.props.value = event.target.value;
-//    },
-	render: function () {
-		var value = this.state.value;
-        /*表单不同于其他标签，文本框中的值不能用this.props.value进行动态读取，
-        * 而是必须使用一个onchange事件的回调函数，如handleChange，通过event.target.value
-        * 进行读取，textarea，select，radio和input text一样
-        * */
-//        var value = this.props.value;
-        console.log(value);
-		var style = {
-			backgroundColor: 'red',
-			width: "100px",
-			height: "100px"
-		};
-		return (
-			<div>
-				<input type="text" name="" value={value} onChange={this.handleChange}/>
-				<p width='100px' height='100px' style={style}>{value}</p>
-				{/*此处必须使用键值(对象)对的方式给style传值*/}
-			</div>
-		);
-	}
-});
-ReactDOM.render(
-	<Input/>,
-	document.getElementById('example')
-);
-</script> -->
-<!-- <script type="text/jsx">
 
+    <script type="text/javascript">
+    	var MyTitle = React.createClass({
+        /**
+         * [getDefaultProps : 设置默认属性]
+         * @return {对象} 对象中包含该组件的默认属性
+         */
+    		getDefaultProps: function() {
+    			return {
+    				title: 'Hello',
+    				name: 'word'
+    			};
+    		},
+    		render: function() {
+    			return <h1> {this.props.title} & {this.props.name} </h1>;
+    		}
+    	});
+    	ReactDOM.render(
+    		<MyTitle title='haha'/>,
+    		document.getElementById('example7')
+    	)
+    </script>
+
+    <script type="text/javascript">
+        /**
+         * handleClick 是一个方法(方法名随便写如oneclick...), 用于处理click事件 
+         * refs 属性用于获取到真实的DOM节点，由于react是虚拟节点
+         * 所有的DOM变动，都会现在虚拟DOM中发生，然后再将实际发生变动的部分反映在真实DOM之上
+         * 此处需要获取到已经渲染完毕的input标签
+         */
+    	var MyComponent = React.createClass({
+    		handleClick: function() {
+    			this.refs.myTextInput.focus();
+    		},
+    		render: function() {
+    			return (
+    				<div>
+    					<input type="text" name="" ref='myTextInput' />
+                        {/* 此处注册监听 onClick={this.handleClick} */}
+    					<input type="button" name="" value='Focus the text input' onClick = {this.handleClick} />
+    				</div>
+    			);
+    		}
+    	});
+    	ReactDOM.render(
+    		<MyComponent/>,
+    		document.getElementById('example8')
+    	)
+    </script>
+
+    <script type="text/javascript">
+        /**
+         * state 不同于props
+         *     state与props都用于描述组件的特性，但是props表示一旦定义，就不再改变的属性
+         *     state 则随着用户的交互发生改变
+         * state(状态) 用于react 组件和用户进行互动
+         * 一旦进行互动，state状态改变，则重新触发this.render(重新渲染)
+         * 注意： 一开始要使用getInitialState方法写入初始化state(状态)
+         */
+    	var LikeButton = React.createClass({
+    		// {/*设置默认的属性*/}
+    		getDefaultProps: function () {
+    			return {
+    				name : 'Johnny'
+    			};
+    		},
+    		// {/*设置属性的类型/}
+    		propTypes: {
+    			name: React.PropTypes.string.isRequired
+    		},
+    		// {/*初始化状态*/}
+    		getInitialState: function () {
+    			return {liked: false};
+    		},
+    		// {/*点击事件处理函数*/}
+    		handleClick: function (event) {
+    			return this.setState({liked: !this.state.liked});
+    		},
+    		// {/*render 函数(必须)*/}
+    		render: function () {
+    			var text = this.state.liked ? "liked":"don't like";
+    			return (
+    				<p onClick={this.handleClick}>
+    					You {text} {this.props.name} ,Click to toggle it!
+    				</p>
+    			)
+    		}
+    	});
+    	var data = "123";
+    	ReactDOM.render (
+    		<LikeButton name={data}/>, /*JSX 值必须是表达式或者字符串*/
+    		document.getElementById('example9')
+    	)
+    </script>
+
+    <script type="text/javascript">
+    var Input = React.createClass({
+    	getInitialState: function () {
+    		return {value: 'hello'};
+    	},
+        getDefaultProps: function () {
+            return {value: 'world'};
+        },
+    	handleChange: function (event) {
+    		return this.setState({value: event.target.value});
+    	},
+    //  handlePropsChange:function(event) {
+    //      return this.props.value = event.target.value;
+    //  },
+    	render: function () {
+    		var value = this.state.value;
+            /*表单不同于其他标签，文本框中的值不能用this.props.value进行动态读取，
+            * 而是必须使用一个onchange事件的回调函数，如handleChange，通过event.target.value
+            * 进行读取，textarea，select，radio和input text一样
+            * */
+    //      var value = this.props.value;
+            console.log(value);
+    		var style = {
+    			backgroundColor: 'red',
+    			width: "100px",
+    			height: "100px"
+    		};
+    		return (
+    			<div>
+    				<input type="text" name="" value={value} onChange={this.handleChange}/>
+    				<p width='100px' height='100px' style={style}>{value}</p>
+    				{/*此处必须使用键值(对象)对的方式给style传值*/}
+    			</div>
+    		);
+    	}
+    });
+    ReactDOM.render(
+    	<Input/>,
+    	document.getElementById('example10')
+    );
+    </script>
+
+<script type="text/javascript">
+    /**
+     *  componentWillMount() 组件将要加载时调用
+     *  componentDidMount() 组件加载完毕时调用
+     *  componentWillUpdate(object nextProps, object nextState) ？
+     *  componentDidUpdate(object prevProps, object prevState) ？
+     *  componentWillUnmount()
+     */
     var Hello = React.createClass({
         getInitialState:function() {
             return {
@@ -403,28 +437,14 @@ ReactDOM.render(
                 }
                 this.setState({opacity: opacity,width: width,height: height});
             };
-            this.timer = setInterval(function(){
-                var width = this.state.width;
-                var height = this.state.height;
-                var opacity = this.state.opacity;
-
-                height -= 1;
-                if(height<0) height=200;
-                width -= 1;
-                if(width<0) width =200;
-                opacity -= 0.02;
-                if(opacity<0.1) {
-                    opacity = 1;
-                }
-                this.setState({opacity: opacity,width: width,height: height});
-            }.bind(this),14);
+            this.timer = setInterval(this.animate.bind(this),14);
 
         },
         componentWillUpadate: function (nextProps,nextState) {
-            console.log(nextProps);
+            console.log(nextProps); //无效？
         },
         componentDidUpadate: function (prevProps, prevState) {
-            console.log("DidUpadate");
+            console.log("DidUpadate"); //无效？
         },
         toggleAnimate: function() {
             if(this.timer == null){
@@ -453,7 +473,7 @@ ReactDOM.render(
                         </div>
                     </div>
 
-                    <button style={{width:'100px',height:'100px'}} onClick={this.toggleAnimate}></button>
+                    <button style={{width:'100px',height:'100px'}} onClick={this.toggleAnimate}>stop</button>
                 </div>
 
             );
@@ -465,10 +485,11 @@ ReactDOM.render(
             <span></span>
             <span></span>
         </Hello>,
-        document.getElementById('example')
+        document.getElementById('example11')
     );
-</script> -->
-<script type="text/jsx">
+</script>
+
+<script type="text/javascript">
     var UserGist = React.createClass({
         getInitialState: function () {
             return {
@@ -538,7 +559,7 @@ ReactDOM.render(
     });
     ReactDOM.render(
         <UserGist source='https://api.github.com/users/octocat/gists'/>,
-        document.getElementById('example')
+        document.getElementById('example12')
     );
 </script>
 </body>
