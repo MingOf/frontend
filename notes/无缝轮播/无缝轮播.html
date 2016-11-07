@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播:JQUERY</title>
+	<script src='./jquery-3.1.1.js'></script>
+	<style>
+		* {
+			margin: 0 ; padding: 0;
+			list-style: none;
+		}
+		#banner {
+			width: 600px; height: 300px; margin: 0 auto; margin-top: 30px;
+			position:relative;
+			border: 5px solid #000;
+			overflow: hidden;
+		}
+		#banner:hover .btn {
+			display: block;
+		}
+		.imgWrapper {
+			position: absolute;
+			height: 300px;
+			width: 5000px; margin: 0 auto;
+		}
+		.img {
+			float: left;
+			width: 600px;
+			height: 300px;
+			text-align: center;
+			line-height: 300px;
+			font-size: 100px;
+		}
+		#img1{background-color: red;} #img2 {background-color: green;} #img3 {background-color: blue;}
+		#img4{background-color: pink;}
+		.num { position: absolute; font-size: 0; margin: 0 auto; bottom: 10px; text-align: center;
+			width: 100%;}
+		.num li {width: 10px; height: 10px; background-color: #888; border-radius: 50%;
+			display: inline-block; margin: 0 3px; cursor: pointer; }
+		.num li.on {background-color: #f60;}
+		.btn {
+			width: 50px; height: 100px;
+			font-size: 50px; background-color: rgba(0,0,0,0.5);
+			line-height: 100px; text-align: center;
+			position: absolute; top: 35%; color: #fff;
+			cursor: pointer; display: none;
+		}
+		.btn_l { left: 0; } .btn_r { right: 0; }
+	</style>
+</head>
+<body>
+	<div id="banner">
+		<ul class="imgWrapper">
+			<li><div id="img1" class="img">1</div></li>
+			<li><div id="img2" class="img">2</div></li>
+			<li><div id="img3" class="img">3</div></li>
+			<li><div id="img4" class="img">4</div></li>
+		</ul>
+
+		<ul class="num">
+		</ul>
+
+		<div class="btn btn_l">&lt;</div>
+		<div class="btn btn_r">&gt;</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			
+			var i = 0;
+			// 克隆第一张图片
+			var clone = $('#banner .imgWrapper li').first().clone();
+			// 将克隆的图片添加到图片的最后一个
+			$('.imgWrapper').append(clone);
+			// 获得总的图片数量（包括克隆后的图片）
+			var size = $("#banner .imgWrapper li").length;	
+			// 根据图片数量创建小圆点		
+			for(var j=0;j<size-1;++j) {
+				$(".num").append('<li></li>');
+			}
+			$('#banner .num li').first().addClass('on');
+			//向左按钮
+			$("#banner .btn_l").click(function(){
+				i--;
+				move();
+			})
+
+			//向右按钮
+			$("#banner .btn_r").click(function() {
+				i++;
+				move()
+			})
+
+			// 点击小圆点
+			$('.num li').click(function () {
+				var index = $(this).index();
+				// console.log(index);
+				i = index;
+				move();
+			})
+
+			// 自动轮播
+			var t = setInterval(function(){
+				i++;
+				move();
+			},2000);
+
+			// 鼠标划入banner时停止定时器
+			$('#banner').hover(
+				function () { //鼠标移入
+					clearInterval(t);
+				},
+				function () { //鼠标移出
+					t = setInterval(function(){
+						i++;
+						move();
+					},2000);
+				}
+			);
+
+			function move () {
+				if(i == -1){
+					// 立即设置内层包裹的长div的left值 ，无动画
+					$('#banner .imgWrapper').css({left:-(size-1)*600}) 
+					i=size-2;
+				}
+				// $("#banner .imgWrapper").stop().animate({left:-i*600},600)
+				if(i == size){
+					$('#banner .imgWrapper').css({left:0});
+					i=1;
+				}
+				// 设置内层包裹的长div的left值 ，有动画
+				$("#banner .imgWrapper").stop().animate({left:-i*600},600);
+				// $('#banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+				if(i == size-1){
+					$('#banner .num li').eq(0).addClass('on').siblings().removeClass('on');
+				}else{
+					//设置小圆点 被激活的 位置
+					$('#banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+				}
+			}
+			// smoothSlide();
+		})
+		// var bannerHTML = {
+		// 	bannerid:'banner',
+		// 	imgWrapperClass:'imgWrapper',
+		// 	imgTagName:'li',
+		// 	numClass:'num',
+		// 	btnLeftClass:'btn_l',
+		// 	btnRightCalss:'btn_r'
+		// }
+		// function smoothSlide () {
+		// 	var i = 0;
+		// 	// 克隆第一张图片
+		// 	var clone = $(banner.imgWrapper+" "+banner.imgTagName).first().clone();
+		// 	// 将克隆的图片添加到图片的最后一个
+		// 	$(banner.imgWrapper).append(clone);
+		// 	// 获得总的图片数量（包括克隆后的图片）
+		// 	var size = $(banner.imgWrapper+" "+banner.imgTagName).length;	
+		// 	// 根据图片数量创建小圆点		
+		// 	for(var j=0;j<size-1;++j) {
+		// 		$(".num").append('<li></li>');
+		// 	}
+		// 	$('#banner .num li').first().addClass('on');
+		// 	//向左按钮
+		// 	$("#banner .btn_l").click(function(){
+		// 		i--;
+		// 		move();
+		// 	})
+
+		// 	//向右按钮
+		// 	$("#banner .btn_r").click(function() {
+		// 		i++;
+		// 		move()
+		// 	})
+
+		// 	// 点击小圆点
+		// 	$('.num li').click(function () {
+		// 		var index = $(this).index();
+		// 		// console.log(index);
+		// 		i = index;
+		// 		move();
+		// 	})
+
+		// 	// 自动轮播
+		// 	var t = setInterval(function(){
+		// 		i++;
+		// 		move();
+		// 	},2000);
+
+		// 	// 鼠标划入banner时停止定时器
+		// 	$('#banner').hover(
+		// 		function () { //鼠标移入
+		// 			clearInterval(t);
+		// 		},
+		// 		function () { //鼠标移出
+		// 			t = setInterval(function(){
+		// 				i++;
+		// 				move();
+		// 			},2000);
+		// 		}
+		// 	);
+
+		// 	function move () {
+		// 		if(i == -1){
+		// 			// 立即设置内层包裹的长div的left值 ，无动画
+		// 			$('#banner .imgWrapper').css({left:-(size-1)*600}) 
+		// 			i=size-2;
+		// 		}
+		// 		// $("#banner .imgWrapper").stop().animate({left:-i*600},600)
+		// 		if(i == size){
+		// 			$('#banner .imgWrapper').css({left:0});
+		// 			i=1;
+		// 		}
+		// 		// 设置内层包裹的长div的left值 ，有动画
+		// 		$("#banner .imgWrapper").stop().animate({left:-i*600},600);
+		// 		// $('#banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+		// 		if(i == size-1){
+		// 			$('#banner .num li').eq(0).addClass('on').siblings().removeClass('on');
+		// 		}else{
+		// 			//设置小圆点 被激活的 位置
+		// 			$('#banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+		// 		}
+		// 	}
+		// }
+	</script>
+</body>
+</html>
