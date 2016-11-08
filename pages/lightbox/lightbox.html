@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>灯箱效果</title>
+    <script src="./js/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="./css/lightBox.css"/>
+</head>
+<body>
+    <div id="lightBox" class="lightBox">
+        <div class="imgWrapper"><img class="box" owidth = '600px' oheight="400px" src="./images/1.jpg" alt=""/></div>
+        <div class="imgWrapper"><img class="box" src="./images/2.jpg" alt=""/></div>
+        <div class="imgWrapper"><img class="box" src="./images/banner.png" alt=""/></div>
+        <div class="imgWrapper"><img class="box" src="./images/right2.jpg" alt=""/></div>
+        <div class="imgWrapper"><img class="box" src="./images/s1.png" alt=""/></div>
+        <div class="imgWrapper"><img class="box" owidth = '700px' oheight="400px" src="./images/3.jpg" alt=""/></div>
+        <div class="imgWrapper"><img class="box" owidth = '600px' oheight="400px" src="./images/4.jpg" alt=""/></div>
+        <div class="imgWrapper"><img class="box" owidth = '600px' oheight="400px" src="./images/5.jpg" alt=""/></div>
+    </div>
+    <script src="js/lightbox.js"></script>
+    <script>
+        /**
+         * 将HTML 如上写
+         * $.lighBox 直接调用即可
+         * 需要标注owidth,oheight 属性,以此注明图片在设置css样式之前
+         * 图片原始的宽高
+         *      如果不注明原始宽高,则自动获取宽高,但影响性能
+         */
+        $.lightBox();
+        $('img').each(function(index){
+            console.log('Hhaa');
+            this.ondragstart=function(e) {
+                e.preventDefault();
+            }
+        })
+    </script>
+</body>
+</html>

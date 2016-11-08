@@ -1,0 +1,84 @@
+#lightBox{
+    width: 100%;
+    overflow: hidden;
+}
+#lightBox>.imgWrapper {
+    overflow: hidden;
+    float: left;
+}
+#lightBox .box {
+
+    border-radius: 5px;
+}
+#lightBox img.box{
+    border-radius: 5px;
+    width: 200px;
+    margin-right: 5px;
+    box-shadow: 0 0 10px #666;
+}
+#lightBox .coverlay {
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    position: fixed;
+    top: 0; left: 0;
+}
+#lightBox .slide {
+    border: 10px solid #fff;
+    box-shadow: 0 0 10px #666;
+    /*margin: 0 auto;*/
+    position: fixed;
+    left: 0; top: 0; bottom: 0; right: 0;
+    margin: auto;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 5px;
+    /*overflow: hidden;*/
+}
+#lightBox .slide>.btn {
+    display: block;
+    content: 'гл';
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #DDDDDD;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    font-size: 30px;
+    text-shadow: 0 0 2px #fff;
+}
+#lightBox .slide:hover .btn{
+    cursor: pointer;
+}
+#lightBox .slide .prev {
+    position: absolute;
+    /*border-radius: 3px;*/
+    left: -40px; top: 43%;
+    width: 30px;height: 80px;
+    background-color: #fff;
+    text-align: center;
+}
+#lightBox .slide .prev::after {
+    content: "<";
+    font-size: 30px;
+    line-height: 80px;
+}
+#lightBox .slide .next {
+    position: absolute;
+    right: -40px; top: 43%;
+    width: 30px;height: 80px;
+    background-color: #fff;
+    text-align: center;
+}
+#lightBox .next::after {
+    content: ">";
+    font-size: 30px;
+    line-height: 80px;
+}
