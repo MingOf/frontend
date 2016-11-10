@@ -1,12 +1,9 @@
 * {
     margin: 0; padding: 0;
     line-height: 100%;
+    color: #fff;
 }
-@media (max-width: 700px) {
-    * {
-        font-size: 14px;
-    }
-}
+
 h1 {
     padding: 60px 0 50px 15px;
 }
@@ -16,7 +13,9 @@ ul {
 .container1 {
     padding: 0;
 }
-
+p {
+    line-height: 25px;
+}
 .row {
     margin: 0;
     padding: 0;
@@ -54,7 +53,7 @@ ul {
 }
 .lay1 {
     text-align: center;
-    min-height: 397px;
+    min-height: 350px;
     font-size: 30px;
     color: #666;
 }
@@ -66,25 +65,41 @@ ul {
     padding-top: 70px;
     padding-bottom: 30px;
 }
+.lay1 p {
+    color: #000;
+}
 @media (max-width: 700px) {
+    * {
+        font-size: 0.5em;
+    }
     .lay1 p {
         padding: 20px;
     }
+    .featured-img {
+        /*width: 30%;*/
+        margin-bottom: 2vw;
+    }
+
 }
 .btn {
     width: 195px; height: 50px;
     background-color: #fb4b4b;
     border-radius: 0;
     color: #fff;
+    line-height: 36px;
+    margin: 0 auto;
+    display: block;
 }
 
-.lay2 {
-    background-color: #cccccc;
-}
 
 .lay3 {
     background-color: #f2f0ec;
     margin-top: 5px;
+    /*min-height: 550px;*/
+    padding-bottom: 50px;
+}
+.lay3 h1 {
+    color: #000;
 }
 .lay3 div.thumbnail:first-of-type {
     /*padding: 10px;*/
@@ -100,13 +115,138 @@ h1 {
     h1{
         text-align: center;
         font-size: 18px;
-        padding: 1% 0;
+        padding: 7% 0;
+    }
+    .lay1 .btn {
+        margin-bottom: 50px;
     }
 }
 .lay4 {
+    /*min-height: 650px;*/
+    padding-bottom: 50px;
     background-color: #1f2a36;
 }
 .lay4 h1{
     color: #fff;
-    padding: 60px 0 40px 15px;
+    /*padding: 60px 0 40px 15px;*/
+}
+@media (max-width: 700px) {
+    .lay4 {
+        min-height: 580px;
+    }
+}
+.lay5 {
+    background: url("../images/bg3.jpg") no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    min-height: 500px;
+}
+.lay5 .events img {
+    width: 150px; height: 150px;
+}
+
+.lay5 .events .events-description p:first-child {
+    font-weight: 700;
+}
+.lay5 .lay5-btn {
+    margin-top: 50px;
+}
+@media (max-width: 700px) {
+    .lay5 {
+        /*min-height: 450px;*/
+        padding-bottom: 50px;
+    }
+    .lay5 .events img {
+        width: 30px; height: 30px;
+    }
+    .lay5 .events .events-description p:first-child {
+        font-weight: 400;
+    }
+    .lay5 .events .events-description p {
+        font-size: 10px;
+    }
+    .lay5 .events .events-description {
+        margin-left: 5%;;
+    }
+    .lay5 .lay5-btn {
+        margin-top: 20px;
+        margin-bottom: 10px;;
+    }
+}
+
+.lay6 {
+    background-color: #fb4b4b;
+    padding-bottom: 50px;
+}
+.lay6 .test-desc {
+    margin-top: 150px;
+}
+.lay6 .test-desc p:first-child {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+@media (max-width: 700px) {
+    
+    .lay6 .test-desc {
+        margin-top: 0;
+        font-size: 10px;
+    }
+    .lay6 .test-desc p:first-child {
+        font-size: 10px;
+        margin-bottom: 0;
+    }
+}
+
+.lay9 {
+    background: url("../images/footerImg.jpg") no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    padding-bottom: 50px;
+    background-position: center;
+}
+.lay9 input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    line-height: 40px;
+    width: 100%;
+}
+.lay9 input[type$='mit'] {
+    border: 1px solid #fb4b4b;
+    color: #fb4b4b;
+}
+
+@media (max-width: 700px) {
+    .lay9 input[type$='mit'] {
+        border: 1px solid #fb4b4b;
+        color: #fb4b4b;
+        margin-top: 3%;
+    }
+    .lay9 input {
+        font-size: 14px;
+    }
+}
+
+address {
+    /*min-height: 215px;*/
+    padding-bottom: 50px;
+    margin-bottom: 0;
+    background-color: #1f2a36;
+}
+address .container {
+    width: 40%;
+    margin: 0 auto;
+    padding-top: 65px;
+}
+address .container .row:last-of-type {
+    margin-top: 25px;
+}
+small {
+    color: #666;
+}
+@media (max-width: 700px) {
+    address .container {
+        width: 100%;
+    }
 }
